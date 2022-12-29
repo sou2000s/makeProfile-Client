@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import SetProfileDetails from "../pages/SetProfileDetails";
+import UserDetails from "../pages/UserDetails";
 const routes = createBrowserRouter([
     {
        path:"/",
@@ -24,6 +25,13 @@ const routes = createBrowserRouter([
      {
         path:'/setProfile',
         element:<SetProfileDetails/>
+     },
+     {
+        path:'/userDetails/:id',
+        loader: ({params})=>{
+            return fetch(`http://localhost:5000/users/${params.id}`)
+        } ,
+        element: <UserDetails/>
      }
       
        ]
