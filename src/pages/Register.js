@@ -17,22 +17,23 @@ const Register = () => {
        .then(res => {
         console.log(res.user);
         setErr('')
-        const user = {
-            email: res.user.email
-        }
+        navigate('/')
+        // const user = {
+        //     email: res.user.email
+        // }
 
-         fetch('http://localhost:5000/users' , {
-            method:"PUT",
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(user)
-         })
-         .then(res => res.json())
-         .then(data => {
-            console.log(data);
-            navigate('/')
-         })
+        //  fetch('http://localhost:5000/users' , {
+        //     method:"PUT",
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     },
+        //     body: JSON.stringify(user)
+        //  })
+        //  .then(res => res.json())
+        //  .then(data => {
+        //     console.log(data);
+        //     navigate('/')
+        //  })
  
 
        })
