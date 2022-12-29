@@ -1,8 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
 
 const Register = () => {
     const {createUser} = useContext(AuthContext)
+    const [err , setErr] = useState()
+    const navigate = useNavigate()
 
   const handleRegister = (e) =>{
        e.preventDefault()
@@ -13,8 +16,27 @@ const Register = () => {
        createUser(email , password)
        .then(res => {
         console.log(res.user);
+        setErr('')
+        const user = {
+            email: res.user.email
+        }
+
+         fetch('http://localhost:5000/users' , {
+            method:"PUT",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+         })
+         .then(res => res.json())
+         .then(data => {
+            console.log(data);
+            navigate('/')
+         })
+ 
+
        })
-       .catch(err => console.log(err.message))
+       .catch(err =>setErr(err.message))
   }
 
     return (
@@ -36,7 +58,7 @@ const Register = () => {
             <span className="label-text">Password</span>
           </label>
           <input type="password" name='password' placeholder="password" className="input input-bordered" />
-          
+          <p className='text-red-500'>{err}</p>
         </div>
         <div className="form-control mt-6">
           <button type='submit'  className="btn btn-primary">Register</button>

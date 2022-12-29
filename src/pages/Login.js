@@ -1,12 +1,53 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
 
 const Login = () => {
-    const {name} = useContext(AuthContext)
+    const {login} = useContext(AuthContext)
+    const [err , setErr] = useState('')
+    const navigate = useNavigate()
+    const handleLogin = (e)=>{
+        e.preventDefault()
+       console.log(e.target);
+       const email = e.target.email.value
+       const password = e.target.password.value
+        login(email , password)
+        .then(res => {
+            console.log(res.user)
+            setErr('')
+            navigate('/')
+        })
+        .catch(err => setErr(err.message))
+    }
     return (
         <div>
-            <h1>Login</h1>
-            <h1>{name}</h1>
+                   <div className="hero min-h-screen bg-base-200">
+  <div className="hero-content flex-col lg:flex-row-reverse">
+    <div className="text-center lg:text-left">
+      <h1 className="text-5xl font-bold">Login</h1>
+         </div>
+    <form onSubmit={handleLogin} className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <div className="card-body">
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Email</span>
+          </label>
+          <input type="email" name='email' placeholder="email" className="input input-bordered" />
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Password</span>
+          </label>
+          <input type="password" name='password' placeholder="password" className="input input-bordered" />
+          <p className='text-red-500'>{err}</p>
+        </div>
+        <div className="form-control mt-6">
+          <button type='submit'  className="btn btn-primary">Login</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
         </div>
     );
 };
