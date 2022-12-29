@@ -13,7 +13,7 @@ const AuthProvider = ({children}) => {
     const googleProvider  = new GoogleAuthProvider()
 
 
- const name = "tatat"
+ 
 
  const createUser = (email , password)=>{
     setLoading(true)
@@ -50,7 +50,7 @@ useEffect(()=>{
     return ()=> unsubscribe()
 } , [])
 
-    const authInfo = {name , createUser , login , logout , loading,setLoading , googleAuthentication , setUser , user}
+    const authInfo = {  createUser , login , logout , loading,setLoading , googleAuthentication , setUser , user}
     return (
         <div>
 

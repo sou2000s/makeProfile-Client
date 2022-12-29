@@ -29,7 +29,7 @@ const routes = createBrowserRouter([
      {
         path:'/userDetails/:id',
         loader: ({params})=>{
-            return fetch(`http://localhost:5000/users/${params.id}`)
+            return fetch(`https://server-site-sable.vercel.app/users/${params.id}`)
         } ,
         element: <UserDetails/>
      }

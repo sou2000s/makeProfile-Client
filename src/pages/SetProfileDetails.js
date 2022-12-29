@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
 
 const SetProfileDetails = () => {
 
   const {user} = useContext(AuthContext)
   console.log(user);
+  const navigate= useNavigate('/')
   const handleSubmit = (e)=>{
     e.preventDefault()
     const user = {
@@ -16,7 +19,7 @@ const SetProfileDetails = () => {
        age : e.target.name.value,
        institutionName : e.target.institutionName.value,
     }
-    fetch('http://localhost:5000/users' , {
+    fetch('https://server-site-sable.vercel.app/users' , {
             method:"POST",
             headers: {
                 'content-type': 'application/json'
@@ -25,7 +28,10 @@ const SetProfileDetails = () => {
          })
          .then(res => res.json())
          .then(data => {
-            console.log(data);
+            if(data.acknowledged){
+              toast.success('submited')
+            e.target.reset()
+            }
             
          })
 
